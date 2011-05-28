@@ -6,6 +6,7 @@ require 'metis/mixin/params_validate'
 require 'metis/mixin/roleable'
 require 'metis/mixin/class_settings'
 require 'metis/mixin/convert_to_class_name'
+require 'metis/mixin/requireable'
 
 require 'metis/host'
 require 'metis/role'
