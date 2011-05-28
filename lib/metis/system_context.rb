@@ -14,13 +14,16 @@ class Metis::SystemContext
 
   def converge
     @hosts.values.each do |host|
-      host.checks << (host.properties.roles || []).collect do |role|
-        r = @roles[role]
-        next unless r
-        r.properties.checks.collect { |c| load_check(host, c) }
+      host.checks.each do |c|
+        host.checks.replace(c, load_check(host, c))
       end
 
-      host.checks << host.properties.checks.collect { |c| load_check(host, c) }
+      host.checks << host.roles.flatten.collect do |role|
+        r = @roles[role]
+        next unless r
+        r.checks.flatten.collect { |c| load_check(host, c) }
+      end
+
       host.checks.flatten!.compact!
     end
   end
@@ -49,7 +52,9 @@ class Metis::SystemContext
     end
     check_params.merge!(params[:params] || {})
 
-    check_class.new(params[:name], host, check_params)
+    check = check_class.new(params[:name], host, check_params)
+    check.from_block(&check_context[:block]) if check_context[:block]
+    check
   end
 
   def find_class_or_symbol(sym)

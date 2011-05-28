@@ -17,13 +17,13 @@ class Metis
 
     def host(name, &block)
       resource = Metis::Host.new(name)
-      resource.properties.instance_eval(&block) if block
+      resource.from_block(&block) if block
       @context.hosts[name] = resource
     end
 
     def role(name, &block)
       resource = Metis::Role.new(name)
-      resource.properties.instance_eval(&block) if block
+      resource.from_block(&block) if block
       @context.roles[name] = resource
     end
 

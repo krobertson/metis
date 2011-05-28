@@ -1,8 +1,9 @@
 class Metis::Runner::Check < Metis::Runner
 
+  setting :block
+
   def execute
-    response = @params[:execute].call
-    add_alert('returned false') unless response
+    block.call
   end
 
 end

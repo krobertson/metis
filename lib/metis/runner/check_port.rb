@@ -2,11 +2,11 @@ require 'socket'
 require 'timeout'
 
 class Metis::Runner::CheckPort < Metis::Runner
-  def execute
-    type = @params[:type] || :tcp
-    port = @params[:port]
-    timeout = @params[:timeout] || 10
+  setting :timeout, :default => 10, :type => Fixnum
+  setting :type, :default => :tcp, :type => Symbol
+  setting :port, :default => 80, :type => Fixnum
 
+  def execute
     Timeout::timeout(timeout) do
       if type == :tcp
         TCPSocket.open(host[:ip_address], port)

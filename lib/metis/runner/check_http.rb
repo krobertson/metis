@@ -3,15 +3,15 @@ require 'net/http'
 class Metis::Runner::CheckHttp < Metis::Runner
   include Metis::Mixin::ConvertToClassName
 
+  setting :timeout, :default => 10, :type => Fixnum
+  setting :method,  :default => :get, :type => Symbol
+  setting :path, :default => '/', :type => String
+  setting :port, :default => 80, :type => Fixnum
+
+  setting :status, :default => 200, :type => Fixnum
+  setting :value, :type => [String, Regexp]
+
   def execute
-    method = @params[:method] || :get
-    path = @params[:path] || '/'
-    port = @params[:port] || 80
-    timeout = @params[:timeout] || 10
-
-    status = @params[:status] || 200
-    value = @params[:value]
-
     http = Net::HTTP.new(host[:ip_address], port)
     http.open_timeout = timeout
     http.read_timeout = timeout

@@ -1,8 +1,6 @@
-class Metis::HostResource < Metis::Resource
-  attr_reader :host
-
-  def initialize(host)
-    @host = host
+class Metis::HostResource < Metis::WildcardDslResource
+  def host
+    @parent
   end
 end
     
