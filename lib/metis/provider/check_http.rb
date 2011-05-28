@@ -1,7 +1,6 @@
 require 'net/http'
 
 class Metis::Provider::CheckHttp < Metis::Provider
-
   def execute
     http = Net::HTTP.new(host[:ip_address], resource.port)
     http.open_timeout = resource.timeout

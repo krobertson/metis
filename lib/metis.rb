@@ -16,7 +16,7 @@ require 'metis/host_resource'
 require 'metis/host'
 require 'metis/role'
 
-require 'metis/runner' #dep
+require 'metis/dsl/check_dsl'
 
 require 'metis/provider'
 require 'metis/provider/check'
@@ -32,3 +32,5 @@ require 'metis/resource/check_port'
 
 require 'metis/dsl'
 require 'metis/system_context'
+require 'metis/host_context'
+require 'metis/solo_context'

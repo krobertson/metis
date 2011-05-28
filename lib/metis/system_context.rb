@@ -30,7 +30,10 @@ class Metis::SystemContext
 
   def monitor
     @hosts.values.each do |host|
-      host.checks.map(&:_execute)
+      host.checks.each do |check|
+        provider = check.class.provider_base.new(check, Metis::HostContext.new(host))
+        provider.execute if provider.prepare
+      end
       puts "WARNING!  HOST #{host.name} HAS ALERTS:\n#{host.alerts.join("\n")}\n\n" unless host.alerts.empty?
     end
   end
@@ -45,15 +48,10 @@ class Metis::SystemContext
     return nil unless check_class
 
     check_params = (check_context[:params] || {})
-    if check_context[:block]
-      resource = Metis::HostResource.new(host)
-      resource.instance_eval(&check_context[:block])
-      check_params.merge!(resource.params) if resource.params
-    end
-    check_params.merge!(params[:params] || {})
+    context = Metis::HostContext.new(host)
 
-    check = check_class.new(params[:name], host, check_params)
-    check.from_block(&check_context[:block]) if check_context[:block]
+    check = check_class.new(params[:name], context) # TODO , check_params)
+    check.instance_eval(&check_context[:block]) if check_context[:block]
     check
   end
 
@@ -62,7 +60,7 @@ class Metis::SystemContext
     return sym if sym.is_a?(Class)
 
     class_name = convert_to_class_name(sym.to_s)
-    Metis::Runner.const_get(class_name)
+    Metis::Resource.const_get(class_name)
   end
 
 end

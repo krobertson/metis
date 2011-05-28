@@ -8,7 +8,6 @@ class Metis::Resource
     @name = name
     @context = context
     @requires = []
-    @alerts = []
   end
 
   def host
@@ -21,7 +20,7 @@ class Metis::Resource
   end
 
   def add_alert(message)
-    @alerts << message
+    @context.host.alerts << message
   end
 
   def _requires
