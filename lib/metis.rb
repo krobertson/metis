@@ -1,6 +1,8 @@
 class Metis
 end
 
+require 'clockwork'
+
 require 'metis/mixin/checkable' #dep
 require 'metis/mixin/roleable' #dep
 require 'metis/mixin/class_settings' #dep
@@ -34,3 +36,4 @@ require 'metis/dsl'
 require 'metis/system_context'
 require 'metis/host_context'
 require 'metis/solo_context'
+require 'metis/agent_context'

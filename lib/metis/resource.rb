@@ -8,6 +8,7 @@ class Metis::Resource
     @name = name
     @context = context
     @requires = []
+    @every = 5.minutes
   end
 
   def host
@@ -21,6 +22,14 @@ class Metis::Resource
 
   def add_alert(message)
     @context.host.alerts << message
+  end
+
+  def every(arg=nil)
+    set_or_return(
+      :every,
+      arg,
+      :kind_of => [ Fixnum ]
+    )
   end
 
   def _requires
