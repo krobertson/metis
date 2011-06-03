@@ -1,5 +1,3 @@
-require 'clockwork'
-
 class Metis::AgentContext
   include Clockwork
 
@@ -21,7 +19,7 @@ class Metis::AgentContext
     end
   end
 
-  def begin
+  def start
     handler do |job|
       check = @checks[job]
       provider = check.class.provider_base.new(check, self)

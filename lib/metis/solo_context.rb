@@ -1,5 +1,3 @@
-require 'ohai'
-
 class Metis::H2 < Ohai::System
   attr_reader :alerts
 
@@ -29,7 +27,7 @@ class Metis::SoloContext
     end
   end
 
-  def run
+  def start
     @checks.values.each do |check|
       provider = check.class.provider_base.new(check, self)
       provider.execute if provider.prepare

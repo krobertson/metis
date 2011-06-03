@@ -1,0 +1,57 @@
+#!/usr/bin/env ruby
+# -*- encoding: binary -*-
+
+require 'rubygems'
+$:.unshift(File.join(File.dirname(__FILE__), "..", "lib"))
+require 'metis'
+require 'metis/application'
+
+require 'optparse'
+
+options = {}
+
+opts = OptionParser.new("", 24, '  ') do |opts|
+  cmd = File.basename($0)
+  opts.banner = "Usage: #{cmd} [options]"
+  opts.separator "Ruby options:"
+
+  opts.on("-d", "--debug", "set debugging flags (set $DEBUG to true)") do
+    $DEBUG = true
+  end
+
+  opts.on("-w", "--warn", "turn warnings on for your script") do
+    $-w = true
+  end
+
+  opts.on("-I", "--include PATH",
+          "specify $LOAD_PATH (may be used more than once)") do |path|
+    $LOAD_PATH.unshift(*path.split(/:/))
+  end
+
+  opts.on("-r", "--require LIBRARY",
+          "require the library, before executing your script") do |library|
+    require library
+  end
+
+  opts.separator "#{cmd} options:"
+
+  opts.on("-c", "--config-file FILE", "Config file") do |f|
+    options[:config_file] = f
+  end
+
+  opts.separator "Common options:"
+
+  opts.on_tail("-h", "--help", "Show this message") do
+    puts opts.to_s.gsub(/^.*DEPRECATED.*$/s, '')
+    exit
+  end
+
+  opts.on_tail("-v", "--version", "Show version") do
+    puts "#{cmd} v#{Metis::VERSION}"
+    exit
+  end
+
+  opts.parse! ARGV
+end
+
+Metis::Application.new(options.merge(:context_class => Metis::AgentContext)).run

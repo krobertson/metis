@@ -1,7 +1,10 @@
+require 'clockwork'
+require 'ohai'
+
 class Metis
 end
 
-require 'clockwork'
+require 'metis/version'
 
 require 'metis/mixin/checkable' #dep
 require 'metis/mixin/roleable' #dep
