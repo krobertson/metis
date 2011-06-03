@@ -6,22 +6,13 @@ end
 
 require 'metis/version'
 
-require 'metis/mixin/checkable' #dep
-require 'metis/mixin/roleable' #dep
-require 'metis/mixin/class_settings' #dep
-require 'metis/mixin/requireable' #dep
-
 require 'metis/mixin/params_validate'
 require 'metis/mixin/convert_to_class_name'
 
-require 'metis/dsl_resource'
-require 'metis/wildcard_dsl_resource'
-require 'metis/host_resource'
-
 require 'metis/host'
-require 'metis/role'
 
 require 'metis/dsl/check_dsl'
+require 'metis/dsl/host_role_dsl'
 
 require 'metis/provider'
 require 'metis/provider/check'
@@ -35,8 +26,5 @@ require 'metis/resource/check_true'
 require 'metis/resource/check_http'
 require 'metis/resource/check_port'
 
-require 'metis/dsl'
-require 'metis/system_context'
-require 'metis/host_context'
 require 'metis/solo_context'
 require 'metis/agent_context'

@@ -1,20 +1,12 @@
-class Metis::H2 < Ohai::System
-  attr_reader :alerts
-
-  def initialize(*args)
-    super
-    @alerts = []
-  end
-end
-  
-
 class Metis::SoloContext
-  attr_reader :host, :checks
+
+  attr_reader :host, :checks, :alerts
 
   def initialize
-    @host = Metis::H2.new
+    @host = Metis::Host.new
     @host.all_plugins
     @checks = {}
+    @alerts = []
   end
 
   def read_file(filename)
@@ -31,8 +23,9 @@ class Metis::SoloContext
     @checks.values.each do |check|
       provider = check.class.provider_base.new(check, self)
       provider.execute if provider.prepare
+      puts "WARNING!  HOST #{host.name} HAS ALERTS:\n#{@alerts.join("\n")}\n\n" unless @alerts.empty?
+      @alerts.clear
     end
-    puts "WARNING!  HOST #{host.name} HAS ALERTS:\n#{host.alerts.join("\n")}\n\n" unless host.alerts.empty?
   end
 
 end

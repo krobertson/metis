@@ -11,7 +11,7 @@ class Metis::Provider
   end
 
   def add_alert(message)
-    @context.host.alerts << message
+    @context.alerts << message
   end
 
   def prepare
