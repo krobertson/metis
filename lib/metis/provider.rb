@@ -1,25 +1,40 @@
-class Metis::Provider
-  attr_accessor :resource, :context
+class Metis
+  class Provider
+    attr_reader :definition
+    
+    def initialize(definition)
+      @definition = definition
+    end
 
-  def initialize(resource, context)
-    @resource = resource
-    @context = context
-  end
+    def params
+      definition.params
+    end
 
-  def host
-    @context.host
-  end
+    def warn(msg)
+      puts msg
+    end
+    
+    def critical(msg)
+      puts msg
+    end
+    
+    def ok(msg=nil)
+      puts msg
+    end
 
-  def add_alert(message)
-    @context.alerts << message
-  end
+    def run
+      self.instance_eval(&definition.execute) if prepare
+    end
 
-  def prepare
-    f = nil
-    resource._requires.each { |r| f = r ; require r }
-    true
-  rescue LoadError
-    add_alert("Failed to load: #{f}")
-    false
+    private
+
+    def prepare
+      f = nil
+      definition._requires.each { |r| f = r ; require r }
+      true
+    rescue LoadError
+      critical("Failed to load: #{f}")
+      false
+    end
   end
 end

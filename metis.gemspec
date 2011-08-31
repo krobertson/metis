@@ -13,7 +13,6 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/krobertson/metis"
 
   s.add_dependency "ohai", ">= 0.5.7"
-  s.add_dependency "clockwork"
 
   s.bindir       = "bin"
   s.executables  = %w( metis-solo metis-agent )

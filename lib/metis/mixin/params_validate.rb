@@ -59,16 +59,15 @@ class Metis
       end
           
       def set_or_return(symbol, arg, validation)
-        iv_symbol = "@#{symbol.to_s}".to_sym
         map = {
           symbol => validation
         }
 
-        if arg == nil && self.instance_variable_defined?(iv_symbol) == true
-          self.instance_variable_get(iv_symbol)
+        if arg == nil && self.params[symbol]
+          self.params[symbol]
         else
           opts = validate({ symbol => arg }, { symbol => validation })
-          self.instance_variable_set(iv_symbol, opts[symbol])
+          self.params[symbol] = opts[symbol]
         end
       end
             
