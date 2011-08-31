@@ -38,10 +38,10 @@ class Metis::Server
   def run
     loop do
       client_socket = @server.accept
-      fork {
+      Thread.start do
         client = Metis::Client.new(client_socket, @context)
         client.process
-      }
+      end
     end
   end
 
