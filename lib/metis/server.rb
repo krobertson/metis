@@ -22,6 +22,12 @@ class Metis::Server
   def start
     @server = TCPServer.new(@options[:host], @options[:port])
     @server = OpenSSL::SSL::SSLServer.new(@server, @ssl_context) if @options[:enable_ssl]
+
+    trap(:QUIT) {
+      self.stop
+      exit(0)
+    }
+
     true
   end
 
@@ -30,11 +36,13 @@ class Metis::Server
   end
 
   def run
-    client_socket = @server.accept
-    fork {
-      client = Metis::Client.new(client_socket, @context)
-      client.process
-    }
+    loop do
+      client_socket = @server.accept
+      fork {
+        client = Metis::Client.new(client_socket, @context)
+        client.process
+      }
+    end
   end
 
 end

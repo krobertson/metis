@@ -54,4 +54,4 @@ opts = OptionParser.new("", 24, '  ') do |opts|
   opts.parse! ARGV
 end
 
-Metis::Application.new(options.merge(:context_class => Metis::SoloContext)).run
+Metis::Application.new(options).run
