@@ -52,8 +52,8 @@ You can set the result of the monitor using `critical()`, `warn()`, or `ok()`.  
 ```ruby
 define :eod do
   execute do
-    warn("Getting close to the end of the day") if Time.now.hour > 21
-    critical("Real close now!") if Time.now.hour > 23
+    warn("Getting close to the end of the day") if Time.now.hour >= 21
+    critical("Real close now!") if Time.now.hour >= 23
     ok("We're all good")
   end
 end
@@ -66,8 +66,8 @@ define :eod do
   attribute :warning,  :default => 21
   attribute :critical, :default => 23
   execute do
-    warn("Getting close to the end of the day") if Time.now.hour > params[:warning]
-    critical("Real close now!") if Time.now.hour > params[:critical]
+    warn("Getting close to the end of the day") if Time.now.hour >= params[:warning]
+    critical("Real close now!") if Time.now.hour >= params[:critical]
     ok("We're all good")
   end
 end
