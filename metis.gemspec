@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.name = 'metis'
   s.version = Metis::VERSION
   s.platform = Gem::Platform::RUBY
-  #s.extra_rdoc_files = ["README.md", "LICENSE" ]
+  s.extra_rdoc_files = ["README.md", "LICENSE" ]
   s.summary = "A server monitoring framework built to bring flexible and testable monitoring to your entire infrastructure."
   s.description = s.summary
   s.author = "Ken Robertson"
