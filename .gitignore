@@ -1,1 +1,4 @@
 *.gem
+coverage
+coverage.data
+Gemfile.lock

@@ -11,9 +11,10 @@ class Metis
     end
 
     def load
-      Dir.chdir @configuration.working_directory
-      load_checks
-      load_check_config
+      Dir.chdir(@configuration.working_directory) do
+        load_checks
+        load_check_config
+      end
       true
     end
 
