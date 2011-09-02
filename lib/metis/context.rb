@@ -1,9 +1,9 @@
 class Metis
   class Context
 
-    attr_reader :definitions
+    attr_reader :definitions, :configuration
 
-    def initialize(configuration_file)
+    def initialize(configuration_file=nil)
       @definitions = Hash.new
 
       @configuration = Metis::Configuration.new
