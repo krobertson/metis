@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.add_dependency "ohai", ">= 0.5.7"
 
   s.bindir       = "bin"
-  s.executables  = %w( metis )
+  s.executables  = %w( metis-server )
   s.require_path = 'lib'
   s.files = Dir.glob("lib/**/*")
 end

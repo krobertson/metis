@@ -26,7 +26,7 @@ Installing Metis is a simple matter of running:
 
 ```
 gem install metis
-metis
+metis-server
 ```
 
 Boom, you're up and ready... though you won't have any monitors defined.
