@@ -1,9 +1,9 @@
 class Metis
   module Mixin
     module FromFile
-    
-      # Loads a given ruby file, and runs instance_eval against it in the context of the current 
-      # object.  
+
+      # Loads a given ruby file, and runs instance_eval against it in the context of the current
+      # object.
       #
       # Raises an IOError if the file cannot be found, or is not readable.
       def from_file(filename)
@@ -14,7 +14,7 @@ class Metis
         end
       end
 
-      # Loads a given ruby file, and runs class_eval against it in the context of the current 
+      # Loads a given ruby file, and runs class_eval against it in the context of the current
       # object.
       #
       # Raises an IOError if the file cannot be found, or is not readable.

@@ -2,7 +2,7 @@ require 'metis/mixin/from_file'
 
 class Metis
   class ConfigurationDefinition
-    include Metis::Mixin::FromFile    
+    include Metis::Mixin::FromFile
 
     def initialize(context)
       @context = context

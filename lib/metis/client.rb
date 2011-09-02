@@ -4,7 +4,7 @@ class Metis::Client
     @socket = socket
     @context = context
   end
-  
+
   def process
     query = Metis::NrpePacket.read(@socket)
 
@@ -34,7 +34,7 @@ class Metis::Client
   end
 
   private
-  
+
   def send_response(result_code, message)
     response = Metis::NrpePacket.new
     response.packet_type = :response

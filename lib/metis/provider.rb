@@ -1,7 +1,7 @@
 class Metis
   class Provider
     attr_reader :definition, :response_code, :response_message
-    
+
     def initialize(definition)
       @definition = definition
       @response_code = Metis::STATUS_OK
@@ -17,14 +17,14 @@ class Metis
         @response_message = msg
       end
     end
-    
+
     def critical(msg)
       unless @response_code > Metis::STATUS_CRITICAL
         @response_code = Metis::STATUS_CRITICAL
         @response_message = msg
       end
     end
-    
+
     def ok(msg=nil)
       unless @response_code > Metis::STATUS_OK
         @response_code = Metis::STATUS_OK

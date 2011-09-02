@@ -32,7 +32,7 @@ class Metis
         end
       end
     end
-    
+
     def load_check_config
       if File.exists?(@configuration.check_configuration_file)
         configdefinition = ConfigurationDefinition.new(self)

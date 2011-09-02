@@ -3,9 +3,9 @@ require 'metis/mixin/params_validate'
 class Metis
   class CheckDefinition
     include Metis::Mixin::ParamsValidate
-    
+
     attr_accessor :name, :params
-    
+
     def initialize
       @name = nil
       @params = {}
