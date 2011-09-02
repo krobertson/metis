@@ -28,6 +28,14 @@ describe Metis::Context do
       @context.definitions[:simple].should be_kind_of Metis::CheckDefinition
     end
 
+    it 'handle duplicates and have the 2nd take precedence' do
+      @context.load
+
+      @context.definitions[:duplicate].should_not be_nil
+      @context.definitions[:duplicate].should be_kind_of Metis::CheckDefinition
+      @context.definitions[:duplicate].params[:name].should == 'Jane'
+    end
+
     it 'should load extra configuration' do
       @context.load
 

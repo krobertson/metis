@@ -56,3 +56,10 @@ define :just_string do
     'hello'
   end
 end
+
+define :duplicate do
+  attribute :name, :default => 'Joe'
+  execute do
+    params[:name]
+  end
+end

@@ -29,6 +29,9 @@ class Metis::Client
     provider.run
     send_response(provider.response_code, provider.response_message)
 
+  rescue Exception => e
+    send_response(Metis::STATUS_CRITICAL, "Error encountered while processing: #{e.message}")
+
   ensure
     @socket.close
   end
