@@ -16,6 +16,22 @@ class Metis::Configuration
     )
   end
 
+  def daemonize(arg=nil)
+    set_or_return(
+      :daemonize,
+      arg,
+      :kind_of => [TrueClass,FalseClass], :default => false
+    )
+  end
+
+  def pid_file(arg=nil)
+    set_or_return(
+      :pid_file,
+      arg,
+      :kind_of => String
+    )
+  end
+
   def checks_include_directories(*arg)
     set_or_return(
       :checks_include_directories,

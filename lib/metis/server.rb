@@ -28,6 +28,11 @@ class Metis::Server
       exit(0)
     }
 
+    trap(:TERM) {
+      self.stop
+      exit(0)
+    }
+
     true
   end
 

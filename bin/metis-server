@@ -39,6 +39,10 @@ opts = OptionParser.new("", 24, '  ') do |opts|
     options[:config_file] = f
   end
 
+  opts.on("-D", "--daemonize", "Run daemonized in the background") do |d|
+    options[:daemonize] = !!d
+  end
+
   opts.separator "Common options:"
 
   opts.on_tail("-h", "--help", "Show this message") do
