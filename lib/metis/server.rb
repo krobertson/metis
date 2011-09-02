@@ -5,7 +5,7 @@ class Metis::Server
 
   DEFAULT_OPTIONS = {
                       :host => '0.0.0.0',
-                      :port => 5667,
+                      :port => 5668,
                       :enable_ssl => true
                     }
 
