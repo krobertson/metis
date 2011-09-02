@@ -47,7 +47,7 @@ describe Metis::Provider do
     end
   end
 
-  describe 'warn and critical' do
+  describe 'state' do
     it 'should set warning state' do
       provider = Metis::Provider.new @context.definitions[:warning]
       provider.run
@@ -62,6 +62,14 @@ describe Metis::Provider do
 
       provider.response_code.should == Metis::STATUS_CRITICAL
       provider.response_message.should == "uhh ohh"
+    end
+
+    it 'should handle precedence when there are multiple state assertions' do
+      provider = Metis::Provider.new @context.definitions[:precedence]
+      provider.run
+
+      provider.response_code.should == Metis::STATUS_CRITICAL
+      provider.response_message.should == "crit"
     end
   end
 end

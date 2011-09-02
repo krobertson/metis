@@ -63,3 +63,11 @@ define :duplicate do
     params[:name]
   end
 end
+
+define :precedence do
+  execute do
+    critical 'crit'
+    warn 'warn'
+    ok 'not so'
+  end
+end
