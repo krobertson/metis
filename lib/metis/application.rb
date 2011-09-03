@@ -13,7 +13,7 @@ class Metis::Application
 
   def start
     # write pid file
-    File.open(@options[:pid_file]) { |f| f.write(Process.pid.to_s) } if @options[:pid_file]
+    File.open(@options[:pid_file], 'w') { |f| f.write(Process.pid.to_s) } if @options[:pid_file]
 
     # load context
     context = Metis::Context.new(@options[:config_file])
@@ -33,7 +33,7 @@ class Metis::Application
       exit if fork
       File.umask 0000
       STDIN.reopen "/dev/null"
-      STDOUT.reopen "/dev/null", "a"
+      STDOUT.reopen @options[:log_file], "a"
       STDERR.reopen STDOUT
       start
     end
