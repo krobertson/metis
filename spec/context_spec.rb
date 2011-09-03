@@ -11,14 +11,7 @@ describe Metis::Context do
 
   describe '.load' do
     before do
-      @context = Metis::Context.new
-      @working_dir = File.dirname(__FILE__)+"/resources/sample"
-      @context.configuration.working_directory @working_dir
-    end
-
-    it 'should chdir into the working directory' do
-      Dir.should_receive(:chdir).with(@working_dir)
-      @context.load.should == true
+      @context = Metis::Context.new File.dirname(__FILE__)+"/resources/sample/metis.rb"
     end
 
     it 'should load the given checks' do

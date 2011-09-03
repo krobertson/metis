@@ -3,8 +3,7 @@ require 'spec_helper'
 describe Metis::Client do
   before do
     @socket = mock
-    @context = Metis::Context.new
-    @context.configuration.working_directory File.dirname(__FILE__)+"/resources/sample"
+    @context = Metis::Context.new File.dirname(__FILE__)+"/resources/sample/metis.rb"
     @context.load
     @client = Metis::Client.new @socket, @context
   end

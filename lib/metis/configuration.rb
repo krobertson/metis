@@ -2,34 +2,11 @@ class Metis::Configuration
   include Metis::Mixin::FromFile
   include Metis::Mixin::ParamsValidate
 
-  attr_reader :params
+  attr_reader :params, :blocks
 
   def initialize
     @params = {}
-  end
-
-  def working_directory(arg=nil)
-    set_or_return(
-      :working_directory,
-      arg,
-      :kind_of => String, :default => Dir.pwd
-    )
-  end
-
-  def daemonize(arg=nil)
-    set_or_return(
-      :daemonize,
-      arg,
-      :kind_of => [TrueClass,FalseClass], :default => false
-    )
-  end
-
-  def pid_file(arg=nil)
-    set_or_return(
-      :pid_file,
-      arg,
-      :kind_of => String
-    )
+    @blocks = Hash.new { |h,k| h[k] = [] }
   end
 
   def checks_include_directories(*arg)
@@ -48,12 +25,8 @@ class Metis::Configuration
     )
   end
 
-  def check_configuration_file(arg=nil)
-    set_or_return(
-      :check_configuration_file,
-      arg,
-      :kind_of => String, :default => 'config.rb'
-    )
+  def configure(check_name, &block)
+    @blocks[check_name] << block
   end
 
 end

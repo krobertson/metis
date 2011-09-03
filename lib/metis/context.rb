@@ -5,16 +5,15 @@ class Metis
 
     def initialize(configuration_file=nil)
       @definitions = Hash.new
+      @configuration_file = configuration_file if configuration_file && File.exists?(configuration_file)
 
       @configuration = Metis::Configuration.new
-      @configuration.from_file(configuration_file) if configuration_file && File.exists?(configuration_file)
+      @configuration.from_file(configuration_file) if @configuration_file
     end
 
     def load
-      Dir.chdir(@configuration.working_directory) do
-        load_checks
-        load_check_config
-      end
+      load_checks
+      load_check_config
       true
     end
 
@@ -35,10 +34,11 @@ class Metis
     end
 
     def load_check_config
-      if File.exists?(@configuration.check_configuration_file)
-        configdefinition = ConfigurationDefinition.new(self)
-        configdefinition.from_file(@configuration.check_configuration_file)
+      @configuration.blocks.each do |check_name,blocks|
+        raise "Unknown check definition: #{check_name}" unless @definitions[check_name]
+        blocks.each { |block| @definitions[check_name].instance_eval(&block) }
       end
+      true
     end
   end
 end

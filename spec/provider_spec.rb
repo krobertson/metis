@@ -2,8 +2,7 @@ require 'spec_helper'
 
 describe Metis::Provider do
   before do
-    @context = Metis::Context.new
-    @context.configuration.working_directory File.dirname(__FILE__)+"/resources/sample"
+    @context = Metis::Context.new File.dirname(__FILE__)+"/resources/sample/metis.rb"
     @context.load
   end
 
