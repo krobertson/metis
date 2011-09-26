@@ -53,7 +53,7 @@ opts = OptionParser.new("", 24, '  ') do |opts|
 
   opts.separator "Common options:"
 
-  opts.on_tail("-h", "--help", "Show this message") do
+  opts.on_tail("--help", "Show this message") do
     puts opts.to_s.gsub(/^.*DEPRECATED.*$/s, '')
     exit
   end
