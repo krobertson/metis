@@ -2,8 +2,9 @@ class Metis
   class Provider
     attr_reader :definition, :response_code, :response_message
 
-    def initialize(definition)
+    def initialize(definition, context)
       @definition = definition
+      @context = context
       @response_code = Metis::STATUS_OK
     end
 
@@ -33,8 +34,16 @@ class Metis
     end
 
     def run
-      result = self.instance_eval(&definition.execute) if prepare
+      Timeout.timeout @context.configuration.timeout do
+        result = self.instance_eval(&definition.execute) if prepare
       ok(result) if result.is_a?(String)
+      end
+
+    # catch a tmeout here... sometimes it can be raised here rather than in Client
+    # want it caught here rather than the more general one so the message returned here
+    # and from Client is ensured to be the same
+    rescue Timeout::Error => e
+      critical("The check timed out")
 
     rescue Exception => e
       critical("Exception raised: #{e.message}")

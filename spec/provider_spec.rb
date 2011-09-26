@@ -8,7 +8,7 @@ describe Metis::Provider do
 
   describe '.run' do
     it 'should return a result' do
-      provider = Metis::Provider.new @context.definitions[:simple]
+      provider = Metis::Provider.new @context.definitions[:simple], @context
       provider.run
 
       provider.response_code.should == Metis::STATUS_OK
@@ -16,7 +16,7 @@ describe Metis::Provider do
     end
 
     it 'should capture exceptions' do
-      provider = Metis::Provider.new @context.definitions[:error]
+      provider = Metis::Provider.new @context.definitions[:error], @context
 
       lambda {
         provider.run
@@ -27,7 +27,7 @@ describe Metis::Provider do
     end
 
     it 'should handle a return of a string as the message' do
-      provider = Metis::Provider.new @context.definitions[:just_string]
+      provider = Metis::Provider.new @context.definitions[:just_string], @context
       provider.run
 
       provider.response_code.should == Metis::STATUS_OK
@@ -35,7 +35,7 @@ describe Metis::Provider do
     end
 
     it 'should handle requiring gems that aren\'t there' do
-      provider = Metis::Provider.new @context.definitions[:bad_gem]
+      provider = Metis::Provider.new @context.definitions[:bad_gem], @context
 
       lambda {
         provider.run
@@ -44,11 +44,22 @@ describe Metis::Provider do
       provider.response_code.should == Metis::STATUS_CRITICAL
       provider.response_message.should == "Failed to load gem: uhhohh"
     end
+
+    it 'should enforce a timeout and return an error when exceeded' do
+      provider = Metis::Provider.new @context.definitions[:sleep], @context
+
+     lambda {
+        provider.run
+      }.should_not raise_error
+
+      provider.response_code.should == Metis::STATUS_CRITICAL
+      provider.response_message.should == "The check timed out"
+   end
   end
 
   describe 'state' do
     it 'should set warning state' do
-      provider = Metis::Provider.new @context.definitions[:warning]
+      provider = Metis::Provider.new @context.definitions[:warning], @context
       provider.run
 
       provider.response_code.should == Metis::STATUS_WARNING
@@ -56,7 +67,7 @@ describe Metis::Provider do
     end
 
     it 'should set critical state' do
-      provider = Metis::Provider.new @context.definitions[:critical]
+      provider = Metis::Provider.new @context.definitions[:critical], @context
       provider.run
 
       provider.response_code.should == Metis::STATUS_CRITICAL
@@ -64,7 +75,7 @@ describe Metis::Provider do
     end
 
     it 'should handle precedence when there are multiple state assertions' do
-      provider = Metis::Provider.new @context.definitions[:precedence]
+      provider = Metis::Provider.new @context.definitions[:precedence], @context
       provider.run
 
       provider.response_code.should == Metis::STATUS_CRITICAL

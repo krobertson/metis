@@ -1,3 +1,5 @@
+require 'timeout'
+
 class Metis::Client
 
   def initialize(socket, context)
@@ -25,7 +27,7 @@ class Metis::Client
     end
 
     # run it
-    provider = Metis::Provider.new(check_definition)
+    provider = Metis::Provider.new(check_definition, @context)
     provider.run
     send_response(provider.response_code, provider.response_message)
 

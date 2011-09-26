@@ -71,3 +71,10 @@ define :precedence do
     ok 'not so'
   end
 end
+
+define :sleep do
+  execute do
+    sleep 2
+    'ok'
+  end
+end

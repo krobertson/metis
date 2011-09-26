@@ -25,6 +25,14 @@ class Metis::Configuration
     )
   end
 
+  def timeout(seconds=nil)
+    set_or_return(
+      :timeout,
+      seconds,
+      :kind_of => Fixnum, :default => 30
+    )
+  end
+
   def configure(check_name, &block)
     @blocks[check_name] << block
   end
