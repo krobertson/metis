@@ -12,8 +12,6 @@ Gem::Specification.new do |s|
   s.email = "ken@invalidlogic.com"
   s.homepage = "http://github.com/krobertson/metis"
 
-  s.add_dependency "ohai", ">= 0.5.7"
-
   s.bindir       = "bin"
   s.executables  = %w( metis-server )
   s.require_path = 'lib'
