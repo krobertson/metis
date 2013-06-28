@@ -1,3 +1,6 @@
+.rvmrc
+.ruby-version
+.rbenv-gemsets
 *.gem
 coverage
 coverage.data
